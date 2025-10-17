@@ -21,7 +21,6 @@ export default function App() {
     queryKey: ["notes", debouncedQuery, page],
     queryFn: () => fetchNotes(debouncedQuery, page),
     placeholderData: keepPreviousData,
-    enabled: !!debouncedQuery,
   });
 
   const handleSearch = (newQuery: string) => {
@@ -33,7 +32,7 @@ export default function App() {
     setIsModalOpen((prev) => !prev);
   };
 
-  const totalPages = data?.total_pages ?? 0;
+  const totalPages = data?.totalPages ?? 0;
   const notes = data?.notes ?? [];
 
   return (

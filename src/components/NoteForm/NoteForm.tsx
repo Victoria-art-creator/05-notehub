@@ -4,6 +4,7 @@ import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "../../services/noteService";
 import type { NoteTag } from "../../types/note";
+import toast from "react-hot-toast";
 
 interface NoteFormProps {
   onClose: () => void;
@@ -38,7 +39,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     mutationFn: createNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
-      alert("post created!");
+      toast.success("post created!");
       onClose();
     },
   });
@@ -47,7 +48,11 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    mutation.mutate(values);
+    mutation.mutate({
+      title: values.title,
+      content: values.content,
+      tag: values.tag,
+    });
     actions.resetForm();
   };
 
