@@ -15,7 +15,7 @@ const NoteSchema = Yup.object().shape({
     .min(3, "min 3")
     .max(50, "max 50")
     .required("Title required"),
-  content: Yup.string().max(500, "max 500").required("Body required"),
+  content: Yup.string().max(500, "max 500"),
   tag: Yup.string().required("Tag required"),
 });
 
